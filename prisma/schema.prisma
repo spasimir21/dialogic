@@ -1,0 +1,36 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum AuthProvider {
+  EMAIL
+  GOOGLE
+}
+
+model User {
+  id                String        @id @default(uuid())
+  authProvider      AuthProvider
+  createdAt         DateTime      @default(now())
+  email             String        @unique
+  password          String?
+  fullname          String
+  profilePictureURL String
+  tokens            Token[]
+}
+
+model Token {
+  id                   String     @id @default(uuid())
+  refreshSecret        String
+  refreshExpiration    DateTime
+  refreshDateOfDeath   DateTime
+  userId               String     
+  user                 User       @relation(fields: [userId], references: [id])
+}

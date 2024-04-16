@@ -1,0 +1,62 @@
+version: '3'
+
+services:
+  dialogic-nginx:
+    image: nginx:stable-alpine
+    env_file:
+      - ./env/.nginx.env
+    ports:
+      - 80:80
+    volumes:
+      - ./config/nginx:/etc/nginx/conf.d
+      - ./dist:/var/www/dist/
+      - ./public:/var/www/public
+    depends_on:
+      - dialogic-ssr
+      - dialogic-product
+      - dialogic-auth
+  dialogic-ssr:
+    build:
+      context: ./
+      dockerfile: ./containers/dev/service.dockerfile
+      args:
+        - SERVICE=ssr
+    env_file:
+      - ./env/.shared.env
+      - ./env/.ssr.env
+    volumes:
+      - ./config/ssr.yml:/app/config/ssr.yml
+      - ./dist:/app/dist
+      - ./proto:/app/proto
+    depends_on:
+      - dialogic-product
+  dialogic-product:
+    build:
+      context: ./
+      dockerfile: ./containers/dev/service.dockerfile
+      args:
+        - SERVICE=product
+    env_file:
+      - ./env/.shared.env
+      - ./env/.product.env
+    volumes:
+      - ./config/server.shared.yml:/app/config/server.shared.yml
+      - ./config/product.yml:/app/config/product.yml
+      - ./dist:/app/dist
+      - ./proto:/app/proto
+    depends_on:
+      - dialogic-auth
+  dialogic-auth:
+    build:
+      context: ./
+      dockerfile: ./containers/dev/service.dockerfile
+      args:
+        - SERVICE=auth
+    env_file:
+      - ./env/.shared.env
+      - ./env/.auth.env
+    volumes:
+      - ./config/server.shared.yml:/app/config/server.shared.yml
+      - ./config/auth.yml:/app/config/auth.yml
+      - ./dist:/app/dist
+      - ./proto:/app/proto

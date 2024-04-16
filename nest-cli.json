@@ -1,0 +1,21 @@
+{
+  "collection": "@nestjs/schematics",
+  "monorepo": true,
+  "projects": {
+    "ssr": {
+      "type": "application",
+      "root": "services/ssr",
+      "sourceRoot": "services/ssr"
+    },
+    "product": {
+      "type": "application",
+      "root": "services/product",
+      "sourceRoot": "services/product"
+    },
+    "auth": {
+      "type": "application",
+      "root": "services/auth",
+      "sourceRoot": "services/auth"
+    }
+  }
+}

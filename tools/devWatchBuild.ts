@@ -25,7 +25,7 @@ spawnSync(
 
 fs.copyFileSync('./frontend/index.html', './dist/index.html');
 
-spawn('node', [
+const tailwindProcess = spawn('node', [
   'node_modules/tailwindcss/lib/cli.js',
   '-w',
   '-c',
@@ -35,6 +35,20 @@ spawn('node', [
   '-o',
   './dist/index.css'
 ]);
+
+let isUpdateScheduled = false;
+let isTailwindDone = false;
+
+tailwindProcess.stderr.on('data', () => {
+  if (isUpdateScheduled) {
+    reloadWebpage();
+    isUpdateScheduled = false;
+    isTailwindDone = false;
+    return;
+  }
+
+  isTailwindDone = true;
+});
 
 const LINKER_PATH = './dependencies/frontend.json';
 
@@ -201,7 +215,13 @@ function importTransformer(context: ts.TransformationContext) {
 
     for (const part of FRONTEND_UPDATE_PATHS) {
       if (!sourceFile.fileName.includes(part)) continue;
-      reloadWebpage();
+
+      if (isTailwindDone) {
+        reloadWebpage();
+        isTailwindDone = false;
+        isUpdateScheduled = false;
+      } else isUpdateScheduled = true;
+
       break;
     }
 

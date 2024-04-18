@@ -5,7 +5,7 @@ export default function Loading() {
   const theme = getTheme();
 
   return (
-    <div className='absolute w-full h-full text-center backdrop-filter bg-[oklch(var(--b2)/0.5)] backdrop-blur-md backdrop-brightness-75 flex justify-around items-center z-10'>
+    <div className='absolute w-full h-full text-center backdrop-filter backdrop-blur-md flex justify-around items-center z-10'>
       <span className='relative flex w-fit h-fit'>
         <span className='animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75'></span>
         <img

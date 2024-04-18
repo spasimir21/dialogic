@@ -39,9 +39,9 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className='w-[100%] h-[80vh] flex justify-center items-center'>
-      <div className='w-[450px] h-[500px] flex flex-col items-center rounded-lg bg-[#efefef] [box-shadow:_3px_3px_4px_rgba(0,0,0,0.2)]'>
-        <h3 className='mt-[30px] font-serif text-[30px] text-[#7A7979] [text-shadow:_0_1px_3px_rgb(0_0_0_/_20%)]'>
+    <div className='w-[100%] h-usable-screen flex justify-center items-center'>
+      <div className='w-[450px] h-[525px] flex flex-col items-center rounded-lg bg-[#efefef] [box-shadow:_3px_3px_4px_rgba(0,0,0,0.2)]'>
+        <h3 className='mt-[25px] font-serif text-[30px] text-[#7A7979] [text-shadow:_0_1px_3px_rgb(0_0_0_/_20%)]'>
           Join our community!
         </h3>
         <div className='mt-[35px]'>
@@ -68,7 +68,7 @@ export default function RegisterPage() {
             ref={passwordInput}
           />
         </div>
-        <button className='button mt-[55px]' onClick={handleRegister}>
+        <button className='button mt-[30px]' onClick={handleRegister}>
           Register
         </button>
         <OAuthButtons />

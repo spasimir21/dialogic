@@ -38,12 +38,12 @@ export default function Login() {
   }
 
   return (
-    <div className='w-[100%] h-[80vh] flex justify-center items-center'>
-      <div className='w-[450px] h-[500px] flex flex-col items-center rounded-lg bg-[#efefef] [box-shadow:_3px_3px_4px_rgba(0,0,0,0.2)]'>
+    <div className='w-[100%] h-usable-screen flex justify-center items-center'>
+      <div className='w-[450px] h-[490px] flex flex-col items-center rounded-lg bg-[#efefef] [box-shadow:_3px_3px_4px_rgba(0,0,0,0.2)]'>
         <h3 className='mt-[30px] font-serif text-[30px] text-[#7A7979] [text-shadow:_0_1px_3px_rgb(0_0_0_/_20%)]'>
           Welcome back!
         </h3>
-        <div className='mt-[70px]'>
+        <div className='mt-[40px]'>
           <label className='block font-mono text-[14px] text-[#999999]'>Email</label>
           <input
             className='border-solid border-[1px] border-[#747474] rounded-[3px] w-[280px] h-[30px] [box-shadow:_2px_2px_4px_rgba(0,0,0,0.18)] font-mono pl-[8px] text-[16px] text-[#7A7979] outline-none focus:border-[#E87231]'
@@ -59,12 +59,12 @@ export default function Login() {
             ref={passwordInput}
           />
         </div>
-        <button onClick={handleLogin} className='button mt-[55px]'>
+        <button onClick={handleLogin} className='button mt-[40px]'>
           Login
         </button>
         <OAuthButtons />
         <SSRLink to='/auth/register'>
-          <p className='mt-[30px] text-[#E87231] font-sans text-[14px] underline cursor-pointer'>
+          <p className='mt-[35px] text-[#E87231] font-sans text-[14px] underline cursor-pointer'>
             Haven't got an account?
           </p>
         </SSRLink>

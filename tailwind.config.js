@@ -3,6 +3,9 @@ import daisyui from 'daisyui';
 const CONFIG = {
   content: ['./frontend/**/*.{html,js,ts,jsx,tsx}'],
   theme: {
+    screens: {
+      sm: { max: '1000px' }
+    },
     fontFamily: {
       serif: ['Righteous'],
       sans: ['Raleway'],

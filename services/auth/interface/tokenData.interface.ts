@@ -1,4 +1,4 @@
-import { UserData } from './UserData';
+import { UserData } from '../dto/userData.dto';
 
 interface TokenData {
   tokenId: string;

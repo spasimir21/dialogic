@@ -44,6 +44,13 @@ const path = (path: string) => {
   };
 };
 
+const query =
+  <T>(key: string, value: string | ((params: T) => string)) =>
+  (request: FetchExecutorInput, params: T) => {
+    request.url.searchParams.set(key, typeof value === 'function' ? value(params) : value);
+    return request;
+  };
+
 const header =
   (name: string, valueGetter: (config: any) => string | undefined | Promise<string | undefined>) =>
   async (request: FetchExecutorInput, _: any, config: any) => {
@@ -51,4 +58,4 @@ const header =
     return request;
   };
 
-export { fetchInit, method, post, get, patch, _delete, jsonBody, service, path, header };
+export { fetchInit, method, post, get, patch, _delete, jsonBody, service, path, header, query };

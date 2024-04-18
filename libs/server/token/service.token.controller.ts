@@ -3,7 +3,7 @@ import { Controller, Inject, Post, Req, Res } from '@nestjs/common';
 import { unwrapResultInController } from '../utils/controllerUtils';
 import { wrapResultAsync } from '@libs/shared/utils/result';
 import { SharedConfig } from '@shared/server/sharedConfig';
-import { TokenData } from '@services/auth/dto/TokenData';
+import { TokenData } from '@services/auth/interface/tokenData.interface';
 import { ClientGrpc } from '@nestjs/microservices';
 import { TokenService } from './token.service';
 import { firstValueFrom } from 'rxjs';

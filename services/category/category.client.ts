@@ -1,9 +1,13 @@
 import { ClientGrpc, ClientsModule, Transport } from '@nestjs/microservices';
+import { CategoryNamesDto } from './dto/categoryNames.dto';
+import { Category } from './interface/category.interface';
 import { Observable } from 'rxjs';
 
 const CATEGORY_CLIENT = Symbol('$CategoryClient');
 
-interface CategoryClient {}
+interface CategoryClient {
+  ensureCategories(request: CategoryNamesDto): Observable<Category>;
+}
 
 // TODO: Add credentials
 const CategoryClientModule = ClientsModule.register([
@@ -21,4 +25,3 @@ const CategoryClientModule = ClientsModule.register([
 const getCategoryClient = (client: ClientGrpc) => client.getService<CategoryClient>('CategoryService');
 
 export { CATEGORY_CLIENT, CategoryClientModule, CategoryClient, getCategoryClient };
-

@@ -24,20 +24,20 @@ import {
 } from '@libs/client/requestr';
 import { getSSRDataValue, isClient } from '@libs/shared/ssr';
 import { Service } from './services';
-import { EmailLoginDto } from '@services/auth/dto/EmailLoginDto';
-import { EmailRegisterDto } from '@services/auth/dto/EmailRegisterDto';
-import { RefreshSecretDto } from '@services/auth/dto/RefreshSecretDto';
-import { TokenData } from '@services/auth/dto/TokenData';
-import { UserInfoDto } from '@services/auth/dto/UserInfo';
+import { EmailLoginDto } from '@services/auth/dto/emailLogin.dto';
+import { EmailRegisterDto } from '@services/auth/dto/emailRegister.dto';
+import { RefreshSecretDto } from '@services/auth/dto/refreshSecret.dto';
+import { TokenData } from '@services/auth/interface/tokenData.interface';
+import { UserInfoDto } from '@services/auth/dto/userInfo.dto';
 import { APP_STORE } from '@frontend/store';
 import { IToken, isTokenExpired } from '@libs/server/token/IToken';
 import { unwrapResultSafe, unwrapResultWithNull, wrapResult, wrapResultAsync } from '@libs/shared/utils/result';
 import { Base64 } from 'js-base64';
 import { atomicRecord } from '@libs/shared/utils/atomicRecord';
-import { UserData } from '@services/auth/dto/UserData';
+import { UserData } from '@services/auth/dto/userData.dto';
 import { deleteCookie, getCookie, setCookie } from '@libs/client/cookies';
 import { hydratedAtom } from '@libs/client/hydratedAtom';
-import { AccessCodeDto } from '@services/auth/dto/AccessCodeDto';
+import { AccessCodeDto } from '@services/auth/dto/accessCode.dto';
 
 const AUTH_TOKEN_LOCAL_STORAGE_KEY = '$authToken';
 
@@ -104,8 +104,6 @@ const AuthToken = sharedAtomic<ParsedAuthToken | null>(
     }
 
     APP_STORE.set(userDataAtom, newToken == null ? null : newToken.token.data.userData);
-
-    console.log(newToken);
   }
 );
 
@@ -181,7 +179,7 @@ async function authenticatedExecutor(request: FetchExecutorInput) {
   const res = await fetchExecutor(await authenticationHeader(request, {}, {}));
 
   if (res.status === 403)
-    window.location.href = `/auth/signin?redirectPath=${encodeURIComponent(window.location.pathname)}`;
+    window.location.href = `/auth/login?redirectPath=${encodeURIComponent(window.location.pathname)}`;
 
   return res;
 }

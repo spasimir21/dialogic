@@ -1,5 +1,6 @@
 import ErrorNotification from '@frontend/components/Notifications/ErrorNotification';
 import { useDispatchNotification } from '@libs/client/notifications/Notifications';
+import { useRedirectPath } from '@libs/client/hooks/useRedirectPath';
 import { useSSRNavigate } from '@libs/client/hooks/useSSRNavigate';
 import { OAuthButtons } from '@frontend/components/OAuthButtons';
 import { setAuthenticationToken } from '@frontend/api/auth';
@@ -17,10 +18,12 @@ export default function Login() {
 
   const navigate = useSSRNavigate();
 
+  const redirectPath = useRedirectPath();
+
   const loginRequest = useRequest(requests.auth.email.login, {
     onResult: async token => {
       await setAuthenticationToken(token);
-      navigate('/');
+      navigate(redirectPath);
     },
     onError: error => {
       dispatchNotification({
@@ -63,7 +66,7 @@ export default function Login() {
           Login
         </button>
         <OAuthButtons />
-        <SSRLink to='/auth/register'>
+        <SSRLink to={`/auth/register?redirectPath=${encodeURIComponent(redirectPath)}`}>
           <p className='mt-[35px] text-[#E87231] font-sans text-[14px] underline cursor-pointer'>
             Haven't got an account?
           </p>

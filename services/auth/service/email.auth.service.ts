@@ -1,7 +1,7 @@
 import { unwrapResultWithErrorMessage, wrapResultAsync } from '@libs/shared/utils/result';
-import { EmailRegisterDto } from '../dto/EmailRegisterDto';
+import { EmailRegisterDto } from '../dto/emailRegister.dto';
 import { AuthTokenService } from './auth.token.service';
-import { EmailLoginDto } from '../dto/EmailLoginDto';
+import { EmailLoginDto } from '../dto/emailLogin.dto';
 import { UserService } from './user.service';
 import { Injectable } from '@nestjs/common';
 

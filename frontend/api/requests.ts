@@ -1,6 +1,7 @@
 import { SuppressErrorNotificationConfig, sendErrorToNotification } from './errorToNotification';
+import { Category } from '@services/category/interface/category.interface';
 import { authEndpoints, serviceAuthenticatedExecutor } from './auth';
-import { ProductDto } from '@services/product/dto/ProductDto';
+import { ProductDto } from '@services/product/dto/product.dto';
 import { Service } from './services';
 import {
   catchHttpError,
@@ -13,10 +14,12 @@ import {
   jsonResponse,
   path,
   post,
+  query,
   service,
   toHttpError,
   withConfig
 } from '@libs/client/requestr';
+import { CategoryNamesDto } from '@services/category/dto/categoryNames.dto';
 
 const product = endpoints(
   {
@@ -38,7 +41,26 @@ const category = endpoints(
   {
     request: service(Service.Category)
   },
-  {}
+  {
+    getTopCategories: endpoint<void, string[]>({
+      request: combine(get, path('/top')),
+      response: jsonResponse
+    }),
+    searchCategories: endpoint<string, string[]>({
+      request: combine(
+        get,
+        path('/search'),
+        query<string>('search', search => search)
+      ),
+      response: jsonResponse
+    }),
+    // TODO: Remove later
+    ensureCategories: endpoint<CategoryNamesDto, Category[]>({
+      request: combine(post, path('/ensure'), jsonBody),
+      executor: serviceAuthenticatedExecutor(Service.Category),
+      response: jsonResponse
+    })
+  }
 );
 
 const requests = endpoints(
@@ -51,4 +73,3 @@ const requests = endpoints(
 );
 
 export { requests };
-

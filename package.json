@@ -82,7 +82,7 @@
     "rollup-plugin-postcss": "^4.0.2",
     "tailwindcss": "^3.4.1",
     "ts-node": "^10.9.2",
-    "typescript": "file:./typescript-compiler"
+    "typescript": "^5.5.0-dev.20240417"
   },
   "repository": {
     "type": "git",

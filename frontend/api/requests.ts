@@ -34,13 +34,21 @@ const product = endpoints(
   }
 );
 
+const category = endpoints(
+  {
+    request: service(Service.Category)
+  },
+  {}
+);
+
 const requests = endpoints(
   withConfig<SuppressErrorNotificationConfig>({
     request: fetchInit,
     response: catchHttpError,
     error: combine(toHttpError, sendErrorToNotification)
   }),
-  { product, auth: authEndpoints }
+  { product, category, auth: authEndpoints }
 );
 
 export { requests };
+

@@ -63,6 +63,13 @@ const UPDATE_INDICATORS: Record<string, string[]> = {
     'shared/shared',
     'services/product'
   ],
+  './dist/services/category/track.txt': [
+    'libs/shared',
+    'libs/server',
+    'shared/server',
+    'shared/shared',
+    'services/category'
+  ],
   './dist/services/ssr/track.txt': ['libs', 'shared' /*, 'frontend'*/, 'services/ssr']
 };
 
@@ -289,3 +296,4 @@ const host = ts.createWatchCompilerHost(
 );
 
 ts.createWatchProgram(host);
+

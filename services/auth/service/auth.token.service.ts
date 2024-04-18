@@ -4,7 +4,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { PrismaService } from '@libs/server/prisma';
 import { TokenService } from '@libs/server/token';
 import { omit } from '@libs/shared/utils/omit';
-import { TokenData } from '../dto/TokenData';
+import { TokenData } from '../interface/tokenData.interface';
 import { AuthConfig } from '../config';
 import { User } from '@prisma/client';
 import { randomBytes } from 'crypto';

@@ -1,5 +1,5 @@
 import { unwrapResultWithNull, wrapResult } from '@libs/shared/utils/result';
-import { UserData, UserDataSchema } from '@services/auth/dto/UserData';
+import { UserData, UserDataSchema } from '@services/auth/dto/userData.dto';
 import { SSRRenderOptions, renderSSR } from '@libs/shared/ssr';
 import { lightTheme } from '@frontend/components/ThemeToggler';
 import * as cookie from 'cookie';

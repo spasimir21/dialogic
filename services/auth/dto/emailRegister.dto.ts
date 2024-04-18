@@ -1,5 +1,5 @@
-import { EmailLoginSchema } from './EmailLoginDto';
-import { UserInfoSchema } from './UserInfo';
+import { EmailLoginSchema } from './emailLogin.dto';
+import { UserInfoSchema } from './userInfo.dto';
 import { createZodDto } from 'nestjs-zod';
 import { z } from 'nestjs-zod/z';
 

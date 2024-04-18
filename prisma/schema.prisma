@@ -3,6 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
 }
 
 datasource db {
@@ -33,4 +34,11 @@ model Token {
   refreshDateOfDeath   DateTime
   userId               String     
   user                 User       @relation(fields: [userId], references: [id])
+}
+
+model Category {
+  id    String  @id @default(uuid())
+  name  String  @unique
+
+  // @@fulltext([name])
 }

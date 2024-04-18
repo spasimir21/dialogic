@@ -14,6 +14,7 @@ services:
     depends_on:
       - dialogic-ssr
       - dialogic-product
+      - dialogic-category
       - dialogic-auth
   dialogic-ssr:
     build:
@@ -46,6 +47,22 @@ services:
       - ./proto:/app/proto
     depends_on:
       - dialogic-auth
+  dialogic-category:
+    build:
+      context: ./
+      dockerfile: ./containers/dev/service.dockerfile
+      args:
+        - SERVICE=category
+    env_file:
+      - ./env/.shared.env
+      - ./env/.category.env
+    volumes:
+      - ./config/server.shared.yml:/app/config/server.shared.yml
+      - ./config/category.yml:/app/config/category.yml
+      - ./dist:/app/dist
+      - ./proto:/app/proto
+    depends_on:
+      - dialogic-auth
   dialogic-auth:
     build:
       context: ./
@@ -60,3 +77,4 @@ services:
       - ./config/auth.yml:/app/config/auth.yml
       - ./dist:/app/dist
       - ./proto:/app/proto
+

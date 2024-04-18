@@ -3,8 +3,8 @@ import { handleNullInController } from '@libs/server/utils/controllerUtils';
 import { IToken, Token, TokenGuard } from '@libs/server/token';
 import { unwrapResultSafe } from '@libs/shared/utils/result';
 import { UserService } from '../service/user.service';
-import { UserInfoDto } from '../dto/UserInfo';
-import { TokenData } from '../dto/TokenData';
+import { UserInfoDto } from '../dto/userInfo.dto';
+import { TokenData } from '../interface/tokenData.interface';
 import { UseZodGuard } from 'nestjs-zod';
 
 @Controller('/user')

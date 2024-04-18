@@ -6,7 +6,7 @@ function streamToArray<T>(stream$: Observable<T>): Promise<T[]> {
   return new Promise((resolve, reject) => {
     stream$.subscribe({
       next: value => values.push(value),
-      error: () => reject(),
+      error: reject,
       complete: () => resolve(values)
     });
   });

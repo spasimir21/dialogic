@@ -1,5 +1,5 @@
 import { ClientGrpc, ClientsModule, Transport } from '@nestjs/microservices';
-import { ProductDto } from './dto/ProductDto';
+import { ProductDto } from './dto/product.dto';
 import { Observable } from 'rxjs';
 
 const PRODUCT_CLIENT = Symbol('$ProductClient');

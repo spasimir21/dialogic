@@ -1,8 +1,8 @@
 import { Body, Controller, Get, Inject, Post, UseGuards } from '@nestjs/common';
+import { TokenData } from '@services/auth/interface/tokenData.interface';
 import { IToken, Token, TokenGuard } from '@libs/server/token';
-import { TokenData } from '@services/auth/dto/TokenData';
 import { ProductService } from './product.service';
-import { ProductDto } from './dto/ProductDto';
+import { ProductDto } from './dto/product.dto';
 import { UseZodGuard } from 'nestjs-zod';
 
 @Controller()

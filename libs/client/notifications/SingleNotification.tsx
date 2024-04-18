@@ -1,4 +1,4 @@
-// import { motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useAtom } from 'jotai';
 import { useEffect } from 'react';
 import { useCloseNotification, NotificationContext, useHideNotification } from './Notifications';

@@ -1,5 +1,6 @@
 import ErrorNotification from '@frontend/components/Notifications/ErrorNotification';
 import { useDispatchNotification } from '@libs/client/notifications/Notifications';
+import { useRedirectPath } from '@libs/client/hooks/useRedirectPath';
 import { useSSRNavigate } from '@libs/client/hooks/useSSRNavigate';
 import { OAuthButtons } from '@frontend/components/OAuthButtons';
 import { setAuthenticationToken } from '@frontend/api/auth';
@@ -17,10 +18,12 @@ export default function RegisterPage() {
 
   const navigate = useSSRNavigate();
 
+  const redirectPath = useRedirectPath();
+
   const registerRequest = useRequest(requests.auth.email.register, {
     onResult: async token => {
       await setAuthenticationToken(token);
-      navigate('/');
+      navigate(redirectPath);
     },
     onError: error => {
       dispatchNotification({
@@ -72,7 +75,7 @@ export default function RegisterPage() {
           Register
         </button>
         <OAuthButtons />
-        <SSRLink to='/auth/login'>
+        <SSRLink to={`/auth/login?redirectPath=${encodeURIComponent(redirectPath)}`}>
           <p className='mt-[30px] text-[#E87231] font-sans text-[14px] underline cursor-pointer'>
             Already have an account?
           </p>

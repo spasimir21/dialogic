@@ -1,4 +1,4 @@
-import { wrapResultAsync } from '@libs/shared/utils/result';
+import { unwrapResultWithErrorMessage, wrapResultAsync } from '@libs/shared/utils/result';
 import { SharedConfig } from '@shared/server/sharedConfig';
 import { AuthTokenService } from './auth.token.service';
 import { Inject, Injectable } from '@nestjs/common';
@@ -57,7 +57,10 @@ class GoogleOAuthService {
       const googleData = await this.getGoogleUserData(accessToken);
       if (typeof googleData !== 'object') throw new Error('Failed to get google user data!');
 
-      const user = await this.userService.createOrGetUserWithGoogle(googleData);
+      const user = unwrapResultWithErrorMessage(
+        await this.userService.createOrGetUserWithGoogle(googleData),
+        () => 'Email is already registered!'
+      );
 
       return this.authTokenService.createTokenForUser(user);
     });

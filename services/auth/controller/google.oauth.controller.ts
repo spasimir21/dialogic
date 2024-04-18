@@ -1,7 +1,7 @@
 import { unwrapResultInController } from '@libs/server/utils/controllerUtils';
 import { GoogleOAuthService } from '../service/google.oauth.service';
 import { Body, Controller, Post, Res } from '@nestjs/common';
-import { AccessCodeDto } from '../dto/AccessCodeDto';
+import { AccessCodeDto } from '../dto/accessCode.dto';
 import { UseZodGuard } from 'nestjs-zod';
 
 @Controller('/oauth/google')

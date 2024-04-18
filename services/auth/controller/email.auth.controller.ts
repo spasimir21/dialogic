@@ -1,8 +1,8 @@
 import { unwrapResultInController } from '@libs/server/utils/controllerUtils';
 import { EmailAuthService } from '../service/email.auth.service';
 import { Body, Controller, Post, Res } from '@nestjs/common';
-import { EmailRegisterDto } from '../dto/EmailRegisterDto';
-import { EmailLoginDto } from '../dto/EmailLoginDto';
+import { EmailRegisterDto } from '../dto/emailRegister.dto';
+import { EmailLoginDto } from '../dto/emailLogin.dto';
 import { UseZodGuard } from 'nestjs-zod';
 
 @Controller('/email')

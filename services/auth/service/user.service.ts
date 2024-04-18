@@ -1,11 +1,11 @@
 import { wrapResultAsync } from '@libs/shared/utils/result';
-import { EmailRegisterDto } from '../dto/EmailRegisterDto';
+import { EmailRegisterDto } from '../dto/emailRegister.dto';
 import { GoogleOAuthData } from './google.oauth.service';
-import { EmailLoginDto } from '../dto/EmailLoginDto';
+import { EmailLoginDto } from '../dto/emailLogin.dto';
 import { PrismaService } from '@libs/server/prisma';
 import { Inject, Injectable } from '@nestjs/common';
+import { UserInfoDto } from '../dto/userInfo.dto';
 import { AuthProvider } from '@prisma/client';
-import { UserInfoDto } from '../dto/UserInfo';
 import { id } from '@libs/shared/utils';
 import { AuthConfig } from '../config';
 import * as bcrypt from 'bcrypt';
@@ -18,21 +18,24 @@ class UserService {
   ) {}
 
   async createOrGetUserWithGoogle(data: GoogleOAuthData) {
-    return await this.prismaService.user.upsert({
-      where: {
-        id: data.id,
-        authProvider: AuthProvider.GOOGLE
-      },
-      update: {},
-      create: {
-        id: data.id,
-        authProvider: AuthProvider.GOOGLE,
-        email: data.email,
-        password: null,
-        fullname: data.name,
-        profilePictureURL: data.picture
-      }
-    });
+    return wrapResultAsync(
+      async () =>
+        await this.prismaService.user.upsert({
+          where: {
+            id: data.id,
+            authProvider: AuthProvider.GOOGLE
+          },
+          update: {},
+          create: {
+            id: data.id,
+            authProvider: AuthProvider.GOOGLE,
+            email: data.email,
+            password: null,
+            fullname: data.name,
+            profilePictureURL: data.picture
+          }
+        })
+    );
   }
 
   createUserWithEmail(data: EmailRegisterDto) {

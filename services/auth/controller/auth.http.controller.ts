@@ -2,8 +2,8 @@ import { IToken, Token, TokenGuard, TokenIgnoreExpiredGuard } from '@libs/server
 import { Body, Controller, Delete, Post, Res, UseGuards } from '@nestjs/common';
 import { handleNullInController } from '@libs/server/utils/controllerUtils';
 import { AuthTokenService } from '../service/auth.token.service';
-import { RefreshSecretDto } from '../dto/RefreshSecretDto';
-import { TokenData } from '../dto/TokenData';
+import { RefreshSecretDto } from '../dto/refreshSecret.dto';
+import { TokenData } from '../interface/tokenData.interface';
 import { UseZodGuard } from 'nestjs-zod';
 
 @Controller()

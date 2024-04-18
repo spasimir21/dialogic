@@ -1,4 +1,4 @@
-import { ProductDto } from './dto/ProductDto';
+import { ProductDto } from './dto/product.dto';
 import { Injectable } from '@nestjs/common';
 import { id } from '@libs/shared/utils/id';
 

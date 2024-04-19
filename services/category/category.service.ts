@@ -1,4 +1,3 @@
-import { CategoriesSearchQueryDto } from './dto/categoriesSearchQuery.dto';
 import { CategoryNamesDto } from './dto/categoryNames.dto';
 import { Category } from './interface/category.interface';
 import { PrismaService } from '@libs/server/prisma';
@@ -14,26 +13,36 @@ class CategoryService {
 
   async ensureCategories(input: CategoryNamesDto): Promise<Category[]> {
     return await this.prismaService.$transaction(
-      input.names.map(name =>
-        this.prismaService.category.upsert({
-          where: { name },
-          update: {},
-          create: { name }
-        })
-      )
+      input.names
+        .map(name => name.trim().toLowerCase())
+        .filter(name => name.length >= 3)
+        .map(name =>
+          this.prismaService.category.upsert({
+            where: { name },
+            update: {},
+            create: { name }
+          })
+        )
     );
   }
 
   async searchCategories(search: string): Promise<Category[]> {
+    const query = search.trim().toLowerCase();
+
     return await this.prismaService.category.findMany({
-      take: this.config.categorySearchMaxResultCount,
+      where: {
+        name: {
+          contains: query
+        }
+      },
       orderBy: {
         _relevance: {
           fields: ['name'],
-          search,
+          search: query,
           sort: 'desc'
         }
-      }
+      },
+      take: this.config.categorySearchMaxResultCount
     });
   }
 

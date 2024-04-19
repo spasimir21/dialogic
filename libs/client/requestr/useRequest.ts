@@ -42,7 +42,7 @@ function useRequest<TParams, TResult, TError extends Error, TConfig>(
     if (config?.initialResult === undefined && config?.initialParams !== undefined) send(config.initialParams);
   }, [send]);
 
-  return { send, result, error, loading };
+  return { send, result, error, loading, setResult };
 }
 
 export { useRequest, UseRequestConfig };

@@ -11,7 +11,6 @@ export default function TopicSelector({
   setSelectedTopics: (selectedTopics: string[]) => void;
 }) {
   const [topicInput, setTopicInput] = useState('');
-  const inputDelaySec = 1;
 
   let timeout = useRef<any>();
 
@@ -45,7 +44,7 @@ export default function TopicSelector({
       }
 
       searchTopicRequest.send(searchQuery);
-    }, inputDelaySec * 1000);
+    }, 500);
   }
 
   function handleSelectTopic(topic: string) {

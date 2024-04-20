@@ -17,6 +17,11 @@
       "root": "services/category",
       "sourceRoot": "services/category"
     },
+    "debate": {
+      "type": "application",
+      "root": "services/debate",
+      "sourceRoot": "services/debate"
+    },
     "auth": {
       "type": "application",
       "root": "services/auth",
@@ -24,4 +29,3 @@
     }
   }
 }
-

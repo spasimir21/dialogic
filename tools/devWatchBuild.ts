@@ -39,7 +39,9 @@ const tailwindProcess = spawn('node', [
 let isUpdateScheduled = false;
 let isTailwindDone = false;
 
-tailwindProcess.stderr.on('data', () => {
+tailwindProcess.stderr.on('data', data => {
+  console.log(data.toString());
+
   if (isUpdateScheduled) {
     reloadWebpage();
     isUpdateScheduled = false;
@@ -77,6 +79,7 @@ const UPDATE_INDICATORS: Record<string, string[]> = {
     'shared/shared',
     'services/debate'
   ],
+  './dist/services/user/track.txt': ['libs/shared', 'libs/server', 'shared/server', 'shared/shared', 'services/user'],
   './dist/services/ssr/track.txt': ['libs', 'shared' /*, 'frontend'*/, 'services/ssr']
 };
 

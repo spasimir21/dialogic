@@ -22,6 +22,11 @@
       "root": "services/debate",
       "sourceRoot": "services/debate"
     },
+    "user": {
+      "type": "application",
+      "root": "services/user",
+      "sourceRoot": "services/user"
+    },
     "auth": {
       "type": "application",
       "root": "services/auth",

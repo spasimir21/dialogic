@@ -16,6 +16,7 @@ services:
       - dialogic-product
       - dialogic-category
       - dialogic-debate
+      - dialogic-user
       - dialogic-auth
   dialogic-ssr:
     build:
@@ -76,6 +77,22 @@ services:
     volumes:
       - ./config/server.shared.yml:/app/config/server.shared.yml
       - ./config/debate.yml:/app/config/debate.yml
+      - ./dist:/app/dist
+      - ./proto:/app/proto
+    depends_on:
+      - dialogic-auth
+  dialogic-user:
+    build:
+      context: ./
+      dockerfile: ./containers/dev/service.dockerfile
+      args:
+        - SERVICE=user
+    env_file:
+      - ./env/.shared.env
+      - ./env/.user.env
+    volumes:
+      - ./config/server.shared.yml:/app/config/server.shared.yml
+      - ./config/user.yml:/app/config/user.yml
       - ./dist:/app/dist
       - ./proto:/app/proto
     depends_on:

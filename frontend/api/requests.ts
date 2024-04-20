@@ -66,13 +66,20 @@ const debate = endpoints(
   {}
 );
 
+const user = endpoints(
+  {
+    request: service(Service.User)
+  },
+  {}
+);
+
 const requests = endpoints(
   withConfig<SuppressErrorNotificationConfig>({
     request: fetchInit,
     response: catchHttpError,
     error: combine(toHttpError, sendErrorToNotification)
   }),
-  { product, category, debate, auth: authEndpoints }
+  { product, category, debate, user, auth: authEndpoints }
 );
 
 export { requests };

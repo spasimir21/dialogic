@@ -17,8 +17,3 @@
 ## Browser
 
 1. Go to `http://dialogic.com`
-
-## Updating the Prisma Schema
-
-1. Do the changes
-2. Run `npx prisma db push`

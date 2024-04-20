@@ -19,6 +19,18 @@ services:
       - dialogic-argument
       - dialogic-rating
       - dialogic-auth
+  dialogic-database:
+    image: postgres
+    restart: always
+    env_file:
+      - ./env/.database.env
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready']
+      interval: 3s
+      timeout: 30s
+      retries: 10
+    volumes:
+      - ./database:/var/lib/postgresql/data
   dialogic-ssr:
     build:
       context: ./
@@ -126,3 +138,6 @@ services:
       - ./config/auth.yml:/app/config/auth.yml
       - ./dist:/app/dist
       - ./proto:/app/proto
+    depends_on:
+      dialogic-database:
+        condition: service_healthy

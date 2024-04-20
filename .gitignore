@@ -1,6 +1,8 @@
 # Env
 env
 
+/database
+
 # Parcel
 .typescript-cache
 

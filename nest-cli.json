@@ -7,11 +7,6 @@
       "root": "services/ssr",
       "sourceRoot": "services/ssr"
     },
-    "product": {
-      "type": "application",
-      "root": "services/product",
-      "sourceRoot": "services/product"
-    },
     "category": {
       "type": "application",
       "root": "services/category",
@@ -26,6 +21,11 @@
       "type": "application",
       "root": "services/user",
       "sourceRoot": "services/user"
+    },
+    "argument": {
+      "type": "application",
+      "root": "services/argument",
+      "sourceRoot": "services/argument"
     },
     "auth": {
       "type": "application",

@@ -13,10 +13,10 @@ services:
       - ./public:/var/www/public
     depends_on:
       - dialogic-ssr
-      - dialogic-product
       - dialogic-category
       - dialogic-debate
       - dialogic-user
+      - dialogic-argument
       - dialogic-auth
   dialogic-ssr:
     build:
@@ -31,24 +31,6 @@ services:
       - ./config/ssr.yml:/app/config/ssr.yml
       - ./dist:/app/dist
       - ./proto:/app/proto
-    depends_on:
-      - dialogic-product
-  dialogic-product:
-    build:
-      context: ./
-      dockerfile: ./containers/dev/service.dockerfile
-      args:
-        - SERVICE=product
-    env_file:
-      - ./env/.shared.env
-      - ./env/.product.env
-    volumes:
-      - ./config/server.shared.yml:/app/config/server.shared.yml
-      - ./config/product.yml:/app/config/product.yml
-      - ./dist:/app/dist
-      - ./proto:/app/proto
-    depends_on:
-      - dialogic-auth
   dialogic-category:
     build:
       context: ./
@@ -93,6 +75,22 @@ services:
     volumes:
       - ./config/server.shared.yml:/app/config/server.shared.yml
       - ./config/user.yml:/app/config/user.yml
+      - ./dist:/app/dist
+      - ./proto:/app/proto
+    depends_on:
+      - dialogic-auth
+  dialogic-argument:
+    build:
+      context: ./
+      dockerfile: ./containers/dev/service.dockerfile
+      args:
+        - SERVICE=argument
+    env_file:
+      - ./env/.shared.env
+      - ./env/.argument.env
+    volumes:
+      - ./config/server.shared.yml:/app/config/server.shared.yml
+      - ./config/argument.yml:/app/config/argument.yml
       - ./dist:/app/dist
       - ./proto:/app/proto
     depends_on:

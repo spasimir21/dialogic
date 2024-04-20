@@ -1,8 +1,8 @@
 enum Service {
-  Product = 'product',
   Category = 'category',
   Debate = 'debate',
   User = 'user',
+  Argument = 'argument',
   Auth = 'auth'
 }
 

@@ -1,7 +1,6 @@
 import { SuppressErrorNotificationConfig, sendErrorToNotification } from './errorToNotification';
 import { Category } from '@services/category/interface/category.interface';
 import { authEndpoints, serviceAuthenticatedExecutor } from './auth';
-import { ProductDto } from '@services/product/dto/product.dto';
 import { Service } from './services';
 import {
   catchHttpError,
@@ -20,22 +19,6 @@ import {
   withConfig
 } from '@libs/client/requestr';
 import { CategoryNamesDto } from '@services/category/dto/categoryNames.dto';
-
-const product = endpoints(
-  {
-    request: service(Service.Product)
-  },
-  {
-    getAll: endpoint<void, ProductDto[]>({
-      request: combine(get, path('/products')),
-      response: jsonResponse
-    }),
-    create: endpoint<ProductDto, void>({
-      request: combine(post, path('/'), jsonBody),
-      executor: serviceAuthenticatedExecutor(Service.Product)
-    })
-  }
-);
 
 const category = endpoints(
   {
@@ -73,13 +56,20 @@ const user = endpoints(
   {}
 );
 
+const argument = endpoints(
+  {
+    request: service(Service.Argument)
+  },
+  {}
+);
+
 const requests = endpoints(
   withConfig<SuppressErrorNotificationConfig>({
     request: fetchInit,
     response: catchHttpError,
     error: combine(toHttpError, sendErrorToNotification)
   }),
-  { product, category, debate, user, auth: authEndpoints }
+  { category, debate, user, argument, auth: authEndpoints }
 );
 
 export { requests };

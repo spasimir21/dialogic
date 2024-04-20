@@ -58,13 +58,6 @@ const FRONTEND_UPDATE_PATHS = ['frontend', 'libs/client', 'libs/shared', 'shared
 
 const UPDATE_INDICATORS: Record<string, string[]> = {
   './dist/services/auth/track.txt': ['libs/shared', 'libs/server', 'shared/server', 'shared/shared', 'services/auth'],
-  './dist/services/product/track.txt': [
-    'libs/shared',
-    'libs/server',
-    'shared/server',
-    'shared/shared',
-    'services/product'
-  ],
   './dist/services/category/track.txt': [
     'libs/shared',
     'libs/server',
@@ -80,6 +73,13 @@ const UPDATE_INDICATORS: Record<string, string[]> = {
     'services/debate'
   ],
   './dist/services/user/track.txt': ['libs/shared', 'libs/server', 'shared/server', 'shared/shared', 'services/user'],
+  './dist/services/argument/track.txt': [
+    'libs/shared',
+    'libs/server',
+    'shared/server',
+    'shared/shared',
+    'services/argument'
+  ],
   './dist/services/ssr/track.txt': ['libs', 'shared' /*, 'frontend'*/, 'services/ssr']
 };
 

@@ -22,7 +22,9 @@ const sendErrorToNotification = (error: HTTPError, config: SuppressErrorNotifica
             path: ['request']
           };
 
-    message = `${validationError.path.map(capitalize).join('.')}: ${validationError.message}`;
+    message = `${validationError.path.map((part: any) => capitalize(String(part))).join('.')}: ${
+      validationError.message
+    }`;
   }
 
   APP_STORE.set(notificationAtoms, {

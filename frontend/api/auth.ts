@@ -223,18 +223,6 @@ const authEndpoints = endpoints(
         register: endpoint<EmailRegisterDto, AuthToken>({ request: path('/register') })
       }
     ),
-    user: endpoints(
-      withConfig<{}>({
-        request: combine(path('/user'), jsonBody),
-        response: textResponse
-      }),
-      {
-        updateInfo: endpoint<UserInfoDto, string>({
-          request: combine(path('/info'), patch),
-          executor: authenticatedExecutor
-        })
-      }
-    ),
     logout: endpoint<void, void>({
       request: combine(path('/logout'), _delete),
       executor: authenticatedExecutor

@@ -14,18 +14,16 @@ export default function TopicSelector({
 
   let timeout = useRef<any>();
 
-  const hotTopicRequest = useRequest(requests.category.getTopCategories, {
-    initialParams: _void
+  const searchTopicRequest = useRequest(requests.category.searchCategories, {
+    initialParams: '' // Send an empty search request to load the top categories immediately
   });
 
-  const searchTopicRequest = useRequest(requests.category.searchCategories);
-
   const availableTopics = useMemo(() => {
-    const topics = searchTopicRequest.result ?? hotTopicRequest.result;
+    const topics = searchTopicRequest.result;
     if (topics == null) return [];
 
     return topics.filter(topic => !selectedTopics.includes(topic));
-  }, [searchTopicRequest.result, hotTopicRequest.result, selectedTopics]);
+  }, [searchTopicRequest.result, selectedTopics]);
 
   useEffect(() => {
     return () => clearTimeout(timeout.current);
@@ -38,11 +36,6 @@ export default function TopicSelector({
     setTopicInput(searchQuery);
 
     timeout.current = setTimeout(() => {
-      if (searchQuery.length < 3) {
-        searchTopicRequest.setResult(hotTopicRequest.result);
-        return;
-      }
-
       searchTopicRequest.send(searchQuery);
     }, 500);
   }

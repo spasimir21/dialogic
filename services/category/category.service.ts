@@ -11,8 +11,8 @@ class CategoryService {
     private readonly prismaService: PrismaService
   ) {}
 
-  async ensureCategories(input: CategoryNamesDto): Promise<Category[]> {
-    return await this.prismaService.$transaction(
+  ensureCategories(input: CategoryNamesDto): Promise<Category[]> {
+    return this.prismaService.$transaction(
       input.names
         .map(name => name.trim().toLowerCase())
         .filter(name => name.length >= 3)
@@ -26,10 +26,11 @@ class CategoryService {
     );
   }
 
-  async searchCategories(search: string): Promise<Category[]> {
+  searchCategories(search: string = ''): Promise<Category[]> {
     const query = search.trim().toLowerCase();
+    if (query.length < 3) return this.getTopCategories();
 
-    return await this.prismaService.category.findMany({
+    return this.prismaService.category.findMany({
       where: {
         name: {
           contains: query
@@ -46,8 +47,8 @@ class CategoryService {
     });
   }
 
-  async getTopCategories(): Promise<Category[]> {
-    return await this.prismaService.category.findMany({
+  private getTopCategories(): Promise<Category[]> {
+    return this.prismaService.category.findMany({
       take: this.config.categorySearchMaxResultCount
     });
   }

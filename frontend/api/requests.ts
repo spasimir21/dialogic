@@ -42,10 +42,6 @@ const category = endpoints(
     request: service(Service.Category)
   },
   {
-    getTopCategories: endpoint<void, string[]>({
-      request: combine(get, path('/top')),
-      response: jsonResponse
-    }),
     searchCategories: endpoint<string, string[]>({
       request: combine(
         get,

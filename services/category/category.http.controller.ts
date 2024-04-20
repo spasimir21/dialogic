@@ -9,14 +9,9 @@ import { UseZodGuard } from 'nestjs-zod';
 class CategoryHTTPController {
   constructor(@Inject(CategoryService) private readonly categoryService: CategoryService) {}
 
-  @Get('/top')
-  async topCategories() {
-    return (await this.categoryService.getTopCategories()).map(category => category.name);
-  }
-
   @UseZodGuard('query', CategoriesSearchQueryDto)
   @Get('/search')
-  async searchCategories(@Query('search') search: string) {
+  async searchCategories(@Query('search') search?: string) {
     return (await this.categoryService.searchCategories(search)).map(category => category.name);
   }
 

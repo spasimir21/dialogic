@@ -69,15 +69,6 @@ class UserService {
 
     return user;
   }
-
-  updateUserInfo(userId: string, info: UserInfoDto) {
-    return wrapResultAsync(() =>
-      this.prismaService.user.update({
-        where: { id: userId },
-        data: info
-      })
-    );
-  }
 }
 
 export { UserService };

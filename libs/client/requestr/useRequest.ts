@@ -30,7 +30,7 @@ function useRequest<TParams, TResult, TError extends Error, TConfig>(
       if (config?.onResult) config.onResult(result);
     } catch (error) {
       setError(error as TError);
-      setResult(null);
+      // setResult(null);
 
       if (config?.onError) config.onError(error as TError);
     } finally {

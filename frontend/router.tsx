@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { ProtectedRoute } from '@libs/client/ProtectedRoute';
 import { ContentLayout } from './layouts/ContentLayout';
 import { RootLayout } from './layouts/RootLayout';
 import React, { lazy } from 'react';
@@ -11,6 +12,7 @@ const Leaderboard = lazy(() => import('./pages/Leaderboard.js'));
 const Register = lazy(() => import('./pages/auth/Register.js'));
 const Login = lazy(() => import('./pages/auth/Login.js'));
 const Rules = lazy(() => import('./pages/Rules.js'));
+const Debug = lazy(() => import('./pages/Debug.js'));
 
 const router = (
   <BrowserRouter>
@@ -18,6 +20,9 @@ const router = (
       <Route path='/oauth/:provider' element={<OAuth />} />
       <Route element={<RootLayout />}>
         <Route element={<ContentLayout />}>
+          {/* TODO: Remove later */}
+          <Route path='/debug' element={<ProtectedRoute element={<Debug />} />} />
+
           <Route path='/' element={<Home />} />
           <Route path='/trending' element={<Trending />} />
           <Route path='/leaderboard' element={<Leaderboard />} />

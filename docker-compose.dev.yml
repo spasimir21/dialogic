@@ -17,6 +17,7 @@ services:
       - dialogic-debate
       - dialogic-user
       - dialogic-argument
+      - dialogic-rating
       - dialogic-auth
   dialogic-ssr:
     build:
@@ -91,6 +92,22 @@ services:
     volumes:
       - ./config/server.shared.yml:/app/config/server.shared.yml
       - ./config/argument.yml:/app/config/argument.yml
+      - ./dist:/app/dist
+      - ./proto:/app/proto
+    depends_on:
+      - dialogic-auth
+  dialogic-rating:
+    build:
+      context: ./
+      dockerfile: ./containers/dev/service.dockerfile
+      args:
+        - SERVICE=rating
+    env_file:
+      - ./env/.shared.env
+      - ./env/.rating.env
+    volumes:
+      - ./config/server.shared.yml:/app/config/server.shared.yml
+      - ./config/rating.yml:/app/config/rating.yml
       - ./dist:/app/dist
       - ./proto:/app/proto
     depends_on:

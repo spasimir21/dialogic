@@ -63,13 +63,20 @@ const argument = endpoints(
   {}
 );
 
+const rating = endpoints(
+  {
+    request: service(Service.Rating)
+  },
+  {}
+);
+
 const requests = endpoints(
   withConfig<SuppressErrorNotificationConfig>({
     request: fetchInit,
     response: catchHttpError,
     error: combine(toHttpError, sendErrorToNotification)
   }),
-  { category, debate, user, argument, auth: authEndpoints }
+  { category, debate, user, argument, rating, auth: authEndpoints }
 );
 
 export { requests };

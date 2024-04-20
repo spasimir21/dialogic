@@ -80,6 +80,13 @@ const UPDATE_INDICATORS: Record<string, string[]> = {
     'shared/shared',
     'services/argument'
   ],
+  './dist/services/rating/track.txt': [
+    'libs/shared',
+    'libs/server',
+    'shared/server',
+    'shared/shared',
+    'services/rating'
+  ],
   './dist/services/ssr/track.txt': ['libs', 'shared' /*, 'frontend'*/, 'services/ssr']
 };
 

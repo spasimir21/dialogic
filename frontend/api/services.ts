@@ -3,6 +3,7 @@ enum Service {
   Debate = 'debate',
   User = 'user',
   Argument = 'argument',
+  Rating = 'rating',
   Auth = 'auth'
 }
 

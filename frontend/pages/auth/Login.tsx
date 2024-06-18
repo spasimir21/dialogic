@@ -1,35 +1,37 @@
-import ErrorNotification from '@frontend/components/Notifications/ErrorNotification';
-import { useDispatchNotification } from '@libs/client/notifications/Notifications';
 import { useRedirectPath } from '@libs/client/hooks/useRedirectPath';
+import { errorToMessage } from '@frontend/api/errorToNotification';
 import { useSSRNavigate } from '@libs/client/hooks/useSSRNavigate';
 import { OAuthButtons } from '@frontend/components/OAuthButtons';
 import { setAuthenticationToken } from '@frontend/api/auth';
 import { useRequest } from '@libs/client/requestr';
 import { requests } from '@frontend/api/requests';
 import { SSRLink } from '@libs/shared/ssr';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import React from 'react';
 
 export default function Login() {
   const emailInput = useRef<HTMLInputElement>(null);
   const passwordInput = useRef<HTMLInputElement>(null);
 
-  const dispatchNotification = useDispatchNotification();
+  const [errorMessage, setErrorMessage] = useState('');
 
   const navigate = useSSRNavigate();
 
   const redirectPath = useRedirectPath();
 
   const loginRequest = useRequest(requests.auth.email.login, {
+    onRequest: () => {
+      setErrorMessage('');
+    },
     onResult: async token => {
       await setAuthenticationToken(token);
       navigate(redirectPath);
     },
     onError: error => {
-      dispatchNotification({
-        action: () => {},
-        content: <ErrorNotification message={error.message} />
-      });
+      setErrorMessage(errorToMessage(error));
+    },
+    requestConfig: {
+      suppressErrorNotification: true
     }
   });
 
@@ -42,7 +44,7 @@ export default function Login() {
 
   return (
     <div className='w-[100%] h-usable-screen flex justify-center items-center'>
-      <div className='w-[450px] h-[490px] flex flex-col items-center rounded-lg bg-[#efefef] [box-shadow:_3px_3px_4px_rgba(0,0,0,0.2)]'>
+      <div className='w-[450px] pb-6 flex flex-col items-center rounded-lg bg-[#efefef] [box-shadow:_3px_3px_4px_rgba(0,0,0,0.2)]'>
         <h3 className='mt-[30px] font-serif text-[30px] text-[#7A7979] [text-shadow:_0_1px_3px_rgb(0_0_0_/_20%)]'>
           Welcome back!
         </h3>
@@ -62,7 +64,8 @@ export default function Login() {
             ref={passwordInput}
           />
         </div>
-        <button onClick={handleLogin} className='button mt-[40px]'>
+        <p className='mt-[20px] text-red-500 text-lg'>{errorMessage}</p>
+        <button onClick={handleLogin} className='button mt-[20px]'>
           Login
         </button>
         <OAuthButtons />

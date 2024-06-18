@@ -1,6 +1,9 @@
+import { useSSRNavigate } from '@libs/client/hooks/useSSRNavigate';
+import { setAuthenticationToken } from '@frontend/api/auth';
 import { useUser } from '@libs/client/hooks/useUser';
+import { useRequest } from '@libs/client/requestr';
+import { requests } from '@frontend/api/requests';
 import { useLocation } from 'react-router-dom';
-import { ProfileImage } from './ProfileImage';
 import { SSRLink } from '@libs/shared/ssr';
 import ThemeToggler from './ThemeToggler';
 import React from 'react';
@@ -8,6 +11,15 @@ import React from 'react';
 export default function Header() {
   const location = useLocation();
   const userData = useUser();
+
+  const navigate = useSSRNavigate();
+
+  const logoutRequest = useRequest(requests.auth.logout, {
+    onResult: async () => {
+      await setAuthenticationToken(null);
+      navigate('/auth/login');
+    }
+  });
 
   return (
     <header className='w-full h-[80px] bg-secondary fixed top-0 z-50'>
@@ -28,7 +40,12 @@ export default function Header() {
               <button className='button'>Join</button>
             </SSRLink>
           ) : (
-            <ProfileImage />
+            <div className='flex items-center gap-5'>
+              <p className='button' onClick={() => logoutRequest.send()}>
+                Logout
+              </p>
+              <img src={userData.profilePictureURL} className='w-[50px] rounded-full' />
+            </div>
           )}
         </div>
       </div>

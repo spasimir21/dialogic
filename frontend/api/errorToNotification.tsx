@@ -9,9 +9,7 @@ interface SuppressErrorNotificationConfig {
   suppressErrorNotification?: boolean;
 }
 
-const sendErrorToNotification = (error: HTTPError, config: SuppressErrorNotificationConfig) => {
-  if (config?.suppressErrorNotification === true) return error;
-
+const errorToMessage = (error: HTTPError) => {
   let message = error.message;
   if (message === 'Validation failed' && error.code === 400) {
     const validationError =
@@ -27,6 +25,14 @@ const sendErrorToNotification = (error: HTTPError, config: SuppressErrorNotifica
     }`;
   }
 
+  return message;
+};
+
+const sendErrorToNotification = (error: HTTPError, config: SuppressErrorNotificationConfig) => {
+  if (config?.suppressErrorNotification === true) return error;
+
+  const message = errorToMessage(error);
+
   APP_STORE.set(notificationAtoms, {
     type: 'insert',
     value: {
@@ -39,4 +45,4 @@ const sendErrorToNotification = (error: HTTPError, config: SuppressErrorNotifica
   return error;
 };
 
-export { SuppressErrorNotificationConfig, sendErrorToNotification };
+export { SuppressErrorNotificationConfig, sendErrorToNotification, errorToMessage };
